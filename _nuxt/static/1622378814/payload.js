@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/", {data:[{data:{BTC:.00002807,ETH:.0004165,EUR:.8237}}],fetch:{},mutations:void 0});
