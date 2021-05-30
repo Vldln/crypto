@@ -47,20 +47,17 @@
 
 <script>
 export default {
-  async asyncData({ $axios, error }) {
-    const data = await $axios
-      .$get(
-        `https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,EUR&api_key=bb247d330f92212852dc26e5cceba436b87caee1e83ec909a15bd9dbec8b69d2`
-      )
-      .catch((e) => {
-        error({ statusCode: 404, message: 'Post not found' })
-      })
+  async asyncData({ $axios, error, env }) {
+    const data = await $axios.$get(
+      `https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,EUR&api_key=${env.API_CRYPTO}`
+    )
     return { data }
   },
   data() {
     return {
       data: 'default',
       forms: [],
+      api: process.env.API_CRYPTO,
     }
   },
   created() {
@@ -76,7 +73,7 @@ export default {
     getCourse() {
       this.$axios
         .$get(
-          `https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,EUR&api_key=bb247d330f92212852dc26e5cceba436b87caee1e83ec909a15bd9dbec8b69d2`
+          `https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,EUR&api_key=${api}`
         )
         .then((response) => {
           this.data = response
