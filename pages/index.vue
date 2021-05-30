@@ -70,19 +70,18 @@ export default {
         [key]: 0,
       })
     }
-    setInterval(
-      () =>
-        this.$axios
-          .$get(
-            `https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,EUR&api_key=bb247d330f92212852dc26e5cceba436b87caee1e83ec909a15bd9dbec8b69d2`
-          )
-          .then((response) => {
-            this.data = response
-          }),
-      1000000
-    )
+    setInterval(this.getCourse, 10000)
   },
   methods: {
+    getCourse() {
+      this.$axios
+        .$get(
+          `https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=BTC,ETH,EUR&api_key=bb247d330f92212852dc26e5cceba436b87caee1e83ec909a15bd9dbec8b69d2`
+        )
+        .then((response) => {
+          this.data = response
+        })
+    },
     convrtR(i, l) {
       this.forms[i].USD = Math.floor(this.forms[i][l] / this.data[l])
     },
